@@ -1,13 +1,19 @@
-import { BlockProducer } from "./types/BlockProducer";
+import { BlockProducer, BlockProducerHttpClient } from "./types/BlockProducerHttpClient";
 
-const testProducer = new BlockProducer("https://caleos.io");
+export async function getProducersArray(urlArray: string[]): Promise<BlockProducer[]>{
+    const producerInfoArray: BlockProducer[] = [];
+    for (const url of urlArray){
+        const producerClient = new BlockProducerHttpClient(url);
+        const producerData = await producerClient.getProducerInfo();
+        const producer = new BlockProducer(producerData);
+        producerInfoArray.push(producer);
+    }
+    return producerInfoArray;
+}
+
 
 (async () => {
-    testProducer.producerInfo = await testProducer.getProducerInfo().catch((error:any) => console.error(error));
-    return testProducer;
-})().then( testProducer => {
-    console.log(testProducer.producerInfo);
-});
-
-
-
+    const producerUrlArray:string[] = ["https://goodblock.io/", "https://caleos.io"];
+    const test = await getProducersArray(producerUrlArray);
+    console.dir(test);
+})()
