@@ -18,13 +18,18 @@ export async function getProducersArrayUsingClient(urlArray: string[]): Promise<
 const bpPath = 'bp.json';
 const chainPath = 'chains.json';
 
+async function getData(url: string): Promise<any>{
+    const rawData = await axios.get(`${url}/${bpPath}`);
+    rawData.data.chains = await axios.get(`${url}/${chainPath}`);
+    return rawData.data;
+} 
+
 export async function getProducersArray(urlArray: string[]): Promise<BlockProducer[]>{
     const producerInfoArray: BlockProducer[] = [];
     for (const url of urlArray){
         try{
-            const rawData = await axios.get(`${url}/${bpPath}`);
-            rawData.data.chains = await axios.get(`${url}/${chainPath}`);
-            const producer = new BlockProducer(rawData.data);
+            const data = await getData(url);
+            const producer = new BlockProducer(data);
             producerInfoArray.push(producer);
         }catch(error){
             console.error(error);
