@@ -15,15 +15,15 @@ export async function getProducersArrayUsingClient(urlArray: string[]): Promise<
     return producerInfoArray;
 }
 
-const bpPath = '/bp.json';
+const bpPath = 'bp.json';
 const chainPath = 'chains.json';
 
 export async function getProducersArray(urlArray: string[]): Promise<BlockProducer[]>{
     const producerInfoArray: BlockProducer[] = [];
     for (const url of urlArray){
         try{
-            const rawData = await axios.get(`${url}${bpPath}`);
-            rawData.data.chains = await axios.get(`${url}${chainPath}`);
+            const rawData = await axios.get(`${url}/${bpPath}`);
+            rawData.data.chains = await axios.get(`${url}/${chainPath}`);
             const producer = new BlockProducer(rawData.data);
             producerInfoArray.push(producer);
         }catch(error){
@@ -35,6 +35,6 @@ export async function getProducersArray(urlArray: string[]): Promise<BlockProduc
 
 (async () => {
     const producerUrlArray:string[] = ["https://goodblock.io/", "https://caleos.io"]
-    const test = await getProducersArrayUsingClient(producerUrlArray);
+    const test = await getProducersArray(producerUrlArray);
     console.dir(test);
 })()
