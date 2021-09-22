@@ -1,4 +1,5 @@
-import { BlockProducer, BlockProducerHttpClient } from "./types/BlockProducerHttpClient";
+import { BlockProducerHttpClient } from "./types/BlockProducerHttpClient";
+import { BlockProducer } from "./types/BlockProducer";
 
 export async function getProducersArray(urlArray: string[]): Promise<BlockProducer[]>{
     const producerInfoArray: BlockProducer[] = [];
@@ -10,7 +11,6 @@ export async function getProducersArray(urlArray: string[]): Promise<BlockProduc
     }
     return producerInfoArray;
 }
-
 
 (async () => {
     const producerUrlArray:string[] = ["https://goodblock.io/", "https://caleos.io"];
