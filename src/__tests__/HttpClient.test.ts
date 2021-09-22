@@ -1,4 +1,4 @@
-import { BlockProducer } from '../types/BlockProducer';
+import { BlockProducerHttpClient } from '../types/BlockProducerHttpClient';
 import axios from "axios";
 
 jest.mock('axios', () => {
@@ -16,7 +16,7 @@ jest.mock('axios', () => {
 describe('HttpClient', () => {
     it('calls create with baseURL', async () => {
         const methodSpy = jest.spyOn(axios, 'create');
-        new BlockProducer('test')
+        new BlockProducerHttpClient('test')
         const expected = { "baseURL": "test"};
         expect(methodSpy).toHaveBeenCalledWith(expected);
     })

@@ -1,22 +1,13 @@
-import { BlockProducer } from '../types/BlockProducer';
+import { BlockProducerHttpClient } from '../types/BlockProducerHttpClient';
 
 describe('BlockProducer', () => {
     const testURL = 'https://caleos.io'
-    const testProducer = new BlockProducer(testURL);
-    testProducer.producerInfo = "test-info";
-    testProducer.chainInfo = "test-chain";
+    const testProducer = new BlockProducerHttpClient(testURL);
+
     const props = Object.getOwnPropertyNames(testProducer);
 
-    it('has producerInfo field', () => {
-        expect(props).toEqual(expect.arrayContaining(['producerInfo']));
-    });
-
-    it('has chainInfo field', () => {
-        expect(props).toEqual(expect.arrayContaining(['chainInfo']));
-    });
-
     it('has getProducer prop (method)', () => {
-        expect(props).toEqual(expect.arrayContaining(['getProducerInfo']));
+        expect(props).toEqual(expect.arrayContaining(['getRawProducerData']));
     });
 
     it('has getChainInfo prop (method)', () => {
