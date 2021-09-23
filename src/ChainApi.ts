@@ -10,8 +10,9 @@ constructor(endpoint: string, fetch: any){
   this.rpc = new JsonRpc(endpoint, { fetch });
 }
 
-public async getTable(params: ApiParams): Promise<any> {
-    return await this.rpc.get_table_rows(params)
+public async getTable(params: ApiParams): Promise<any[]> {
+    const resultObj = await this.rpc.get_table_rows(params);
+    return resultObj.rows;
   }
 
   public async getProducers(): Promise<any> {
