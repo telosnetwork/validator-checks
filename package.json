@@ -18,6 +18,7 @@
   "devDependencies": {
     "@types/jest": "^27.0.2",
     "@types/node": "^16.9.6",
+    "@types/text-encoding": "^0.0.36",
     "@typescript-eslint/eslint-plugin": "^4.31.2",
     "@typescript-eslint/parser": "^4.31.2",
     "eslint": "^7.32.0",
@@ -27,6 +28,8 @@
     "typescript": "^4.4.3"
   },
   "dependencies": {
-    "axios": "^0.21.4"
+    "axios": "^0.21.4",
+    "eosjs": "^22.1.0",
+    "node-fetch": "2.6.1"
   }
 }

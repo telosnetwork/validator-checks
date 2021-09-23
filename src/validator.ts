@@ -1,7 +1,9 @@
 import { BlockProducerHttpClient } from "./types/BlockProducerHttpClient";
 import { BlockProducer } from "./types/BlockProducer";
+import { ChainApi } from "./ChainApi";
 import axios from 'axios';
-
+import {  JsonRpc } from 'eosjs';
+import * as fetch from 'node-fetch';
 
 //to use ininterceptors 
 export async function getProducersArrayUsingClient(urlArray: string[]): Promise<BlockProducer[]>{
@@ -38,8 +40,25 @@ export async function getProducersArray(urlArray: string[]): Promise<BlockProduc
     return producerInfoArray;
 }
 
+export async function getChainData(endpoint: string): Promise<any>{
+    const chainApi = new ChainApi(endpoint);
+    return await chainApi.getTable();
+}
+
+export function test():any{
+    const test = new JsonRpc('http://telos.caleos.io', { fetch } );
+    return test;
+}
+
+
+
+
 (async () => {
-    const producerUrlArray:string[] = ["https://goodblock.io/", "https://caleos.io"]
-    const test = await getProducersArray(producerUrlArray);
-    console.dir(test);
+    // const producerUrlArray:string[] = ["https://goodblock.io/", "https://caleos.io"]
+    // const test = await getProducersArray(producerUrlArray);
+    // console.dir(test);
+    // await getChainData('http://telos.caleos.io');
+    const testing = test();
+    console.dir(testing);
+
 })()
