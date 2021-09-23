@@ -5,7 +5,7 @@ export class ChainApi {
 
 private rpc: any;
 
-constructor(endpoint: string){
+constructor(endpoint: string, fetch: any){
   this.rpc = new JsonRpc(endpoint, { fetch });
 }
 
