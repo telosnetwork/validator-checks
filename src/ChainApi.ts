@@ -26,6 +26,10 @@ public async getTable(params: ApiParams): Promise<any> {
     } as ApiParams;
     return await this.getTable(params);
   }
+
+  public filterByPropertyValue(array: Record<string, unknown>[],prop: string, value: number | string | boolean ): Record<string, unknown>[]{
+    return array.filter((a)=> { return a[prop] === value})
+  }
 }
 
 export function getChainApi(){

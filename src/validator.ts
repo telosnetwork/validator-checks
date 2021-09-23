@@ -38,10 +38,14 @@ export async function getProducersArray(urlArray: string[]): Promise<BlockProduc
     return producerInfoArray;
 }
 
+
+
+
 (async () => {
     const chainApi = getChainApi();
-
-    console.dir(await chainApi.getProducers())
+    const producers = await chainApi.getProducers();
+    const filteredProducers = chainApi.filterByPropertyValue(producers, 'is_active', 1);
+    console.dir(filteredProducers);
     
     // const producerUrlArray:string[] = ["https://goodblock.io/", "https://caleos.io"]
     // const test = await getProducersArray(producerUrlArray);
