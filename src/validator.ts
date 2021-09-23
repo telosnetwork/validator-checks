@@ -42,12 +42,18 @@ export async function getProducersArray(urlArray: string[]): Promise<BlockProduc
 
 
 (async () => {
-    const chainApi = getChainApi();
-    const producers = await chainApi.getProducers();
-    const filteredProducers = chainApi.filterByPropertyValue(producers, 'is_active', 1);
-    console.dir(filteredProducers);
-    
     // const producerUrlArray:string[] = ["https://goodblock.io/", "https://caleos.io"]
     // const test = await getProducersArray(producerUrlArray);
     // console.dir(test);
+
+    const chainApi = getChainApi();
+    
+    const producers = await chainApi.getProducers();
+
+    // const filteredByString = chainApi.filterByPropertyValue(producers, 'url', 'https://kainosbp.com');
+    // console.dir(filteredByString);
+
+    const filteredByNumber = chainApi.filterByPropertyValue(producers, 'is_active', 1);
+    console.dir(filteredByNumber);
+
 })()
