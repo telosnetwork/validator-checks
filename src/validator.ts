@@ -1,25 +1,53 @@
-import { HttpClient } from './http-client';
+import { BlockProducerHttpClient } from "./types/BlockProducerHttpClient";
+import { BlockProducer } from "./types/BlockProducer";
+import { getChainApi } from "./ChainApi";
+import axios from 'axios';
 
-class BlockProducer extends HttpClient {
-    public producerInfo: any;
-    public chainInfo: any;
+const bpPath = 'bp.json';
+const chainPath = 'chains.json';
 
-    public constructor(baseRoute: string) {
-        super(baseRoute);
+//to use interceptors 
+export async function getProducersArrayUsingClient(urlArray: string[]): Promise<BlockProducer[]>{
+    const producerInfoArray: BlockProducer[] = [];
+    for (const url of urlArray){
+        const producerClient = new BlockProducerHttpClient(url);
+        const producerData = await producerClient.getProducerInfo();
+        const producer = new BlockProducer(producerData);
+        producerInfoArray.push(producer);
     }
-
-    public getProducerInfo = () => this.instance.get('/bp.json');
-    public getChainInfo = () => this.instance.get('/chains.json');
+    return producerInfoArray;
 }
 
-const testProducer = new BlockProducer("https://caleos.io");
+async function getData(url: string): Promise<any>{
+    const rawData = await axios.get(`${url}/${bpPath}`);
+    rawData.data.chains = await axios.get(`${url}/${chainPath}`);
+    return rawData.data;
+} 
+
+export async function getProducersArray(urlArray: string[]): Promise<BlockProducer[]>{
+    const producerInfoArray: BlockProducer[] = [];
+    for (const url of urlArray){
+        try{
+            const data = await getData(url);
+            const producer = new BlockProducer(data);
+            producerInfoArray.push(producer);
+        }catch(error){
+            console.error(error);
+        }
+    }
+    return producerInfoArray;
+}
+
+
+
 
 (async () => {
-    testProducer.producerInfo = await testProducer.getProducerInfo().catch(error => console.error(error));
-    return testProducer;
-})().then( testProducer => {
-    console.log(testProducer.producerInfo);
-})
-
-
-
+    const chainApi = getChainApi();
+    const producers = await chainApi.getProducers();
+    const filteredProducers = chainApi.filterByPropertyValue(producers, 'is_active', 1);
+    console.dir(filteredProducers);
+    
+    // const producerUrlArray:string[] = ["https://goodblock.io/", "https://caleos.io"]
+    // const test = await getProducersArray(producerUrlArray);
+    // console.dir(test);
+})()
