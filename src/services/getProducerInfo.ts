@@ -4,6 +4,7 @@ import axios from 'axios';
 const bpPath = 'bp.json';
 const chainPath = 'chains.json';
 
+/* istanbul ignore next - not currently implemented */
 //alternative for getProducersInfo() if use of interceptors is desired  
 export async function getProducersInfoUsingClient(urlArray: string[]): Promise<BlockProducer[]>{
     const producerInfoArray: BlockProducer[] = [];
