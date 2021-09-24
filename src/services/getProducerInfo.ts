@@ -1,13 +1,11 @@
-import { BlockProducerHttpClient } from "./types/BlockProducerHttpClient";
-import { BlockProducer } from "./types/BlockProducer";
-import { getChainApi } from "./ChainApi";
+import { BlockProducer, BlockProducerHttpClient } from "@classes";
 import axios from 'axios';
 
 const bpPath = 'bp.json';
 const chainPath = 'chains.json';
 
-//to use interceptors 
-export async function getProducersArrayUsingClient(urlArray: string[]): Promise<BlockProducer[]>{
+//alternative for getProducersInfo() if use of interceptors is desired  
+export async function getProducersInfoUsingClient(urlArray: string[]): Promise<BlockProducer[]>{
     const producerInfoArray: BlockProducer[] = [];
     for (const url of urlArray){
         const producerClient = new BlockProducerHttpClient(url);
@@ -24,7 +22,7 @@ async function getData(url: string): Promise<any>{
     return rawData.data;
 } 
 
-export async function getProducersArray(urlArray: string[]): Promise<BlockProducer[]>{
+export async function getProducersInfo(urlArray: string[]): Promise<BlockProducer[]>{
     const producerInfoArray: BlockProducer[] = [];
     for (const url of urlArray){
         try{
@@ -37,23 +35,3 @@ export async function getProducersArray(urlArray: string[]): Promise<BlockProduc
     }
     return producerInfoArray;
 }
-
-
-
-
-(async () => {
-    // const producerUrlArray:string[] = ["https://goodblock.io/", "https://caleos.io"]
-    // const test = await getProducersArray(producerUrlArray);
-    // console.dir(test);
-
-    const chainApi = getChainApi();
-    
-    const producers = await chainApi.getProducers();
-
-    // const filteredByString = chainApi.filterByPropertyValue(producers, 'url', 'https://kainosbp.com');
-    // console.dir(filteredByString);
-
-    const filteredByNumber = chainApi.filterByPropertyValue(producers, 'is_active', 1);
-    console.dir(filteredByNumber);
-
-})()

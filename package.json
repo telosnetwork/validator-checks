@@ -7,8 +7,13 @@
   "author": "Don Peat",
   "license": "-",
   "private": true,
+  "_moduleAliases": {
+    "@classes": "./src/classes",
+    "@services": "./src/services",
+    "@types": "./src/types"
+  },
   "scripts": {
-    "cli": "ts-node src/validator.ts",
+    "cli": "ts-node src/main.ts",
     "test": "jest",
     "lint": "eslint src/ --ext .js,.jsx,.ts,.tsx",
     "build": "tsc -p tsconfig.json",
@@ -31,6 +36,7 @@
     "@types/node-fetch": "2.5.4",
     "axios": "^0.21.4",
     "eosjs": "^22.1.0",
+    "module-alias": "^2.2.2",
     "node-fetch": "2.6.0"
   }
 }
