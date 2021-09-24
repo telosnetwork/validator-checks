@@ -1,5 +1,5 @@
 export class BlockProducer {
-    public name = ""
+    public name = "";
     public producerData: any;
 
     public constructor(producerData: any) {

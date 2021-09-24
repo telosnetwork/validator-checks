@@ -12,6 +12,7 @@ export class BlockProducerHttpClient extends HttpClient {
         const rawData = await this.getRawProducerData();
         const chains = await this.getChainInfo();
         rawData.chains = chains;
+        
         return rawData;
     }
 }

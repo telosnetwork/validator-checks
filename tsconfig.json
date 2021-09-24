@@ -19,10 +19,12 @@
     "experimentalDecorators": true,
     "sourceMap": true,
     "outDir": "./dist/tsc/",
-    "typeRoots": [
-      "./src/types",
-      "./node_modules/@types",
-    ],
+    "baseUrl": "./src",
+    "paths": {
+      "@types": ["types"],
+      "@classes": ["classes"],
+      "@services": ["services"]
+    },
     "types": [
       "node",
       "jest"
