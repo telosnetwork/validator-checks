@@ -15,6 +15,10 @@ class ChainApi {
     return results;
   }
 
+  public async getInfo():Promise<any> {
+    return await this.rpc.get_info();
+  }
+
  /**
   * @param filter is a tuple [table property, value to filter by] to optionally filter results
   */
