@@ -1,10 +1,11 @@
 import { JsonRpc } from 'eosjs';
 import fetch from 'node-fetch';
 import { ApiParams, FilterTuple, RowResults, ResultsTuple } from '@types';
+import { ChainInfo } from 'types/ChainInfo';
 
-class ChainApi {
+export class ChainApi {
 
-  private rpc: any;
+  public rpc: any;
 
   constructor(endpoint: string, fetch: any){
     this.rpc = new JsonRpc(endpoint, { fetch });
@@ -15,6 +16,10 @@ class ChainApi {
     return results;
   }
 
+  public async getInfo():Promise<ChainInfo> {
+    return await this.rpc.get_info();
+  }
+
  /**
   * @param filter is a tuple [table property, value to filter by] to optionally filter results
   */
@@ -23,14 +28,16 @@ class ChainApi {
     let producerArray = [];
 
     const results = await this.getTable(params); 
-
-    if (results.more && results.next_key) next_key = results.next_key;
-    producerArray = filter === undefined ? results.rows : results.rows.filter((a:any)=> { return a[filter[0]] === filter[1]});
+    console.log(results);
     
+    if (results.more && results.next_key) next_key = results.next_key;
+
+    producerArray = filter === undefined ? results.rows : results.rows.filter((a:any)=> { return a[filter[0]] === filter[1]});
+
     return [producerArray, next_key];
   }
 
-  public filterByPropertyValue(array: Record<string, unknown>[],prop: string, value: number | string | boolean ): Record<string, unknown>[]{
+  public filterByPropertyValue(array: any[],prop: string, value: number | string | boolean ): Record<string, unknown>[]{
     return array.filter((a)=> { return a[prop] === value})
   }
 }

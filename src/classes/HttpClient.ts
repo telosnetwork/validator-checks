@@ -18,7 +18,9 @@ export abstract class HttpClient {
     );
   };
 
+  /* istanbul ignore next */
   private _handleResponse = ({ data }: AxiosResponse) => data;
-
+  
+  /* istanbul ignore next */
   protected _handleError = (error: string): Promise<AxiosResponse> => Promise.reject(error);
 }
