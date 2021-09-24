@@ -1,4 +1,4 @@
-import { BlockProducerHttpClient } from '../types/BlockProducerHttpClient';
+import {BlockProducerHttpClient} from '@classes';
 
 describe('BlockProducer', () => {
     const testURL = 'https://caleos.io'
