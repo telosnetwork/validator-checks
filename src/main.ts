@@ -1,19 +1,9 @@
 import "module-alias/register";
-import {  getProducersInfo, verifyEndpoint /* getChainApi */ } from "@services";
-// import { ApiParams, ResultsTuple, FilterTuple } from "@types";
+import {  getProducersInfo, verifyEndpoint, getChainApi } from "@services";
+import { /* ApiParams, ResultsTuple,*/ FilterTuple } from "@types";
 
 
 (async () => {
-    // get block producer info from bp.json & chains.json
-    const producerUrlArray:string[] = [ "https://caleos.io" ]
-    const test = await getProducersInfo(producerUrlArray);
-
-    const testApiEndpoint = test[0].fullNode.api_endpoint;
-    console.dir(await verifyEndpoint(testApiEndpoint));
-
-    const testSSLEndpoint = test[0].fullNode.ssl_endpoint;
-    console.dir(await verifyEndpoint(testSSLEndpoint));
-
     // const params = {
     //     json: true, 
     //     code: 'eosio', 
@@ -24,9 +14,9 @@ import {  getProducersInfo, verifyEndpoint /* getChainApi */ } from "@services";
     //     limit: 100
     //   } as ApiParams;
 
-    // const filter: FilterTuple = ['is_active', 1];
+    const filter: FilterTuple = ['owner', 'caleosblocks'];
     
-    // const chainApi = getChainApi();
+    const chainApi = getChainApi();
 
     // let results: ResultsTuple = [[], params.lower_bound];
 
@@ -41,9 +31,15 @@ import {  getProducersInfo, verifyEndpoint /* getChainApi */ } from "@services";
     // const results = await chainApi.getTableInfo(params);
     // console.dir(results);
 
-    // const producers = await chainApi.getProducers('', 50, filter);
+    const producers = await chainApi.getProducers('', 3, filter);
     // const producers = await chainApi.getProducers();
-    // console.dir(producers);
+    const urlArray:string[] = [];
+
+    for (const producer of producers[0] as any){
+        urlArray.push(producer.url)
+    }
+
+    const test = await getProducersInfo(urlArray);
 
     // const producerAccountInfo = await chainApi.getAccount('caleosblocks');
     // console.dir(producerAccountInfo);
@@ -53,5 +49,15 @@ import {  getProducersInfo, verifyEndpoint /* getChainApi */ } from "@services";
 
     // const chainInfo = await chainApi.getInfo();
     // console.dir(chainInfo);
+
+    // get block producer info from bp.json & chains.json
+    // const producerUrlArray:string[] = [ "https://caleos.io" ]
+    // const test = await getProducersInfo(producerUrlArray);
+    
+    const testApiEndpoint = test[0].fullNode.api_endpoint;
+    console.dir(await verifyEndpoint(testApiEndpoint));
+    
+    const testSSLEndpoint = test[0].fullNode.ssl_endpoint;
+    console.dir(await verifyEndpoint(testSSLEndpoint));
 
 })()
