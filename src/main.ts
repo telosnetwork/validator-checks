@@ -11,6 +11,9 @@ import {  getProducersInfo, verifyEndpoint /* getChainApi */ } from "@services";
     const testApiEndpoint = test[0].fullNode.api_endpoint;
     console.dir(await verifyEndpoint(testApiEndpoint));
 
+    const testSSLEndpoint = test[0].fullNode.ssl_endpoint;
+    console.dir(await verifyEndpoint(testSSLEndpoint));
+
     // const params = {
     //     json: true, 
     //     code: 'eosio', 
