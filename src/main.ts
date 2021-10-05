@@ -37,14 +37,16 @@ import { /* getProducersInfo, */ getChainApi } from "@services";
     // console.dir(results);
 
     // const producers = await chainApi.getProducers('', 50, filter);
-    const producers = await chainApi.getProducers();
-    console.dir(producers);
+    // const producers = await chainApi.getProducers();
+    // console.dir(producers);
+
+    const producerAccountInfo = await chainApi.getAccount('caleosblocks');
+    console.dir(producerAccountInfo);
 
     // const prodSched: any = await chainApi.getProducerSchedule();
     // console.dir(prodSched[0].authority[1]);
 
     // const chainInfo = await chainApi.getInfo();
     // console.dir(chainInfo);
-    // console.log(test[0].isOnChain(chainInfo.chain_id))
 
 })()

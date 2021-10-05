@@ -58,6 +58,10 @@ export class ChainApi {
     return [producerArray, next_key];
   }
 
+  public async getAccount( accountName: string): Promise<any>{
+    return await this.rpc.get_account(accountName);
+  }
+
   public async getProducerSchedule(): Promise<any>{
     const schedule = await this.rpc.get_producer_schedule();
     return schedule.active.producers;
