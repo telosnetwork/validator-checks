@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const bpPath = 'bp.json';
 const chainPath = 'chains.json';
+const chainInfo = 'v1/chain/get_info'; //temp used to ping urls
 
 /* istanbul ignore next - not currently implemented */
 //alternative for getProducersInfo() if use of interceptors is desired  
@@ -36,4 +37,13 @@ export async function getProducersInfo(urlArray: string[]): Promise<BlockProduce
         }
     }
     return producerInfoArray;
+}
+
+export async function verifyEndpoint(url: string): Promise<boolean> {
+    try {
+        await axios.get(`${url}/${chainInfo}`);
+        return true;
+    }catch{
+        return false;
+    }
 }

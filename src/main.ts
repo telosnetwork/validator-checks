@@ -1,13 +1,15 @@
 import "module-alias/register";
-import { /* getProducersInfo, */ getChainApi } from "@services";
+import {  getProducersInfo, verifyEndpoint /* getChainApi */ } from "@services";
 // import { ApiParams, ResultsTuple, FilterTuple } from "@types";
 
 
 (async () => {
     // get block producer info from bp.json & chains.json
-    // const producerUrlArray:string[] = [ "https://caleos.io", 'https://telos.boid.com']
-    // const test = await getProducersInfo(producerUrlArray);
-    // console.dir(test[0].producerData);
+    const producerUrlArray:string[] = [ "https://caleos.io" ]
+    const test = await getProducersInfo(producerUrlArray);
+
+    const testApiEndpoint = test[0].fullNode.api_endpoint;
+    console.dir(await verifyEndpoint(testApiEndpoint));
 
     // const params = {
     //     json: true, 
@@ -21,7 +23,7 @@ import { /* getProducersInfo, */ getChainApi } from "@services";
 
     // const filter: FilterTuple = ['is_active', 1];
     
-    const chainApi = getChainApi();
+    // const chainApi = getChainApi();
 
     // let results: ResultsTuple = [[], params.lower_bound];
 
@@ -40,8 +42,8 @@ import { /* getProducersInfo, */ getChainApi } from "@services";
     // const producers = await chainApi.getProducers();
     // console.dir(producers);
 
-    const producerAccountInfo = await chainApi.getAccount('caleosblocks');
-    console.dir(producerAccountInfo);
+    // const producerAccountInfo = await chainApi.getAccount('caleosblocks');
+    // console.dir(producerAccountInfo);
 
     // const prodSched: any = await chainApi.getProducerSchedule();
     // console.dir(prodSched[0].authority[1]);
