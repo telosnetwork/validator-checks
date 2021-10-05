@@ -5,7 +5,7 @@ export interface ApiParams {
     table: string; // Table name
     key_type: string; // Type of key
     index_position: number; // Position of index
-    lower_bound: string; // Table secondary key value
+    lower_bound: any; // Table secondary key value
     upper_bound: string;
     limit: number; //  # of rows to limit query
     reverse: boolean; // Optional: Get reversed data

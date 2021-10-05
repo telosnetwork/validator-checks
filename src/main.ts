@@ -1,13 +1,13 @@
 import "module-alias/register";
-import {  getProducersInfo , getChainApi } from "@services";
-// import { ApiParams, ResultsTuple } from "@types";
+import { /* getProducersInfo, */ getChainApi } from "@services";
+// import { ApiParams, ResultsTuple, FilterTuple } from "@types";
 
 
 (async () => {
     // get block producer info from bp.json & chains.json
-    const producerUrlArray:string[] = [ "https://caleos.io"]
-    const test = await getProducersInfo(producerUrlArray);
-    console.dir(test[0].producerData);
+    // const producerUrlArray:string[] = [ "https://caleos.io", 'https://telos.boid.com']
+    // const test = await getProducersInfo(producerUrlArray);
+    // console.dir(test[0].producerData);
 
     // const params = {
     //     json: true, 
@@ -15,10 +15,11 @@ import {  getProducersInfo , getChainApi } from "@services";
     //     scope: 'eosio',
     //     table: 'producers', 
     //     key_type: `i64`, 
-    //     index_position: 1, 
-    //     lower_bound: '14651781093154739648',
-    //     limit: 1
+    //     index_position: 1,
+    //     limit: 100
     //   } as ApiParams;
+
+    // const filter: FilterTuple = ['is_active', 1];
     
     const chainApi = getChainApi();
 
@@ -32,17 +33,18 @@ import {  getProducersInfo , getChainApi } from "@services";
     // }
     // console.log("DONE");
 
-    // const results = await chainApi.getProducerInfo(params,['url', 'https://www.alohaeos.com']);
+    // const results = await chainApi.getTableInfo(params);
     // console.dir(results);
 
-    // const filteredByString = chainApi.filterByPropertyValue(producers, 'url', 'https://kainosbp.com');
-    // console.dir(filteredByString);
+    // const producers = await chainApi.getProducers('', 50, filter);
+    const producers = await chainApi.getProducers();
+    console.dir(producers);
 
-    // const filteredByNumber = chainApi.filterByPropertyValue(producers, 'is_active', 1);
-    // console.dir(filteredByNumber);
+    // const prodSched: any = await chainApi.getProducerSchedule();
+    // console.dir(prodSched[0].authority[1]);
 
-    const chainInfo = await chainApi.getInfo();
-    console.dir(chainInfo);
-    console.log("On Main Net?", chainInfo.chain_id in test[0].producerData.chains ? "Yes" : "No")
+    // const chainInfo = await chainApi.getInfo();
+    // console.dir(chainInfo);
+    // console.log(test[0].isOnChain(chainInfo.chain_id))
 
 })()
