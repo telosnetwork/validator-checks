@@ -19,7 +19,8 @@ export async function getProducersInfoUsingClient(urlArray: string[]): Promise<B
 
 async function getData(url: string): Promise<any>{
     const rawData = await axios.get(`${url}/${bpPath}`);
-    rawData.data.chains = await axios.get(`${url}/${chainPath}`);
+    const rawChainData = await axios.get(`${url}/${chainPath}`);
+    rawData.data.chains = rawChainData.data.chains;
     return rawData.data;
 } 
 

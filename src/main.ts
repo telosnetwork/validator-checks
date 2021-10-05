@@ -1,13 +1,13 @@
 import "module-alias/register";
-import { /* getProducersInfo ,*/ getChainApi } from "@services";
+import {  getProducersInfo , getChainApi } from "@services";
 // import { ApiParams, ResultsTuple } from "@types";
 
 
 (async () => {
     // get block producer info from bp.json & chains.json
-    // const producerUrlArray:string[] = ["https://goodblock.io/", "https://caleos.io"]
-    // const test = await getProducersInfo(producerUrlArray);
-    // console.dir(test);
+    const producerUrlArray:string[] = [ "https://caleos.io"]
+    const test = await getProducersInfo(producerUrlArray);
+    console.dir(test[0].producerData);
 
     // const params = {
     //     json: true, 
@@ -43,5 +43,6 @@ import { /* getProducersInfo ,*/ getChainApi } from "@services";
 
     const chainInfo = await chainApi.getInfo();
     console.dir(chainInfo);
+    console.log("On Main Net?", chainInfo.chain_id in test[0].producerData.chains ? "Yes" : "No")
 
 })()
