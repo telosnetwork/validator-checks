@@ -1,4 +1,4 @@
-export interface BlockProducerInfo {
+export interface BlockProducer {
     owner: string;
     total_votes: string;
     producer_key: string;
@@ -16,4 +16,11 @@ export interface BlockProducerInfo {
     times_kicked: number;
     kick_penalty_hours: number;
     last_time_kicked: string;
+    org?: any[];
+    nodes?: any[];
+    chains?: any[];
+    apiVerified?: boolean;
+    sslVerified?: boolean;
+    apiVerifiedTestNet?: boolean;
+    sslVerifiedTestNet?: boolean;
 }

@@ -1,5 +1,5 @@
 import { JsonRpc } from 'eosjs';
-import { ApiParams, FilterTuple, RowResults, ResultsTuple } from '@types';
+import { ApiParams, FilterTuple, RowResults, ResultsTuple} from '@types';
 import { ChainInfo } from 'types/ChainInfo';
 import fetch from 'node-fetch';
 
@@ -32,7 +32,7 @@ export class ChainApi {
     
     if (results.more && results.next_key) next_key = results.next_key;
 
-    producerArray = filter === undefined ? results.rows : this.filterByPropertyValue(results.rows, filter);//results.rows.filter((a:any)=> { return a[filter[0]] === filter[1]});
+    producerArray = filter === undefined ? results.rows : this.filterByPropertyValue(results.rows, filter);
 
     return [producerArray, next_key];
   }
@@ -46,7 +46,7 @@ export class ChainApi {
   * @param limit optional results limit
   * @param filter optional tuple [table property, value to filter by] to filter results, must be passed with lowerBound and limit
   */
-  public async getProducers(lowerBound = '', limit = 200, filter?: FilterTuple): Promise<ResultsTuple> {
+  public async getProducers(lowerBound: string, limit: number, filter?: FilterTuple): Promise<ResultsTuple> {
     let next_key = "";
     let producerArray = [];
 
