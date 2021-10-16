@@ -18,22 +18,12 @@ export async function getData(url: string, path: string): Promise<any>{
 
 export async function getProducersData(mainNet = mainNetUrl /*, testNet = testNetUrl */): Promise<BlockProducer[]> {
     const chainApi = new ChainApi(mainNet);
-    const producers = await chainApi.getProducers('', 20, ['is_active', 1] );
-    console.dir(producers);
-    const urlArray:string[] = [];
+    const producers = await chainApi.getProducers('', 30, ['is_active', 1] );
+    const producerInfoArray: BlockProducer[] = [];
 
     for (const producer of producers[0] as any){
-        urlArray.push(producer.url)
-    }
-
-    const producerInfoArray: BlockProducer[] = [];
-    for (const url of urlArray){
-        try{
-            const producer = await BlockProducer.build(url);
-            if (producer) producerInfoArray.push(producer);
-        }catch(error){
-            console.error(error);
-        }
+        const newProducer = await BlockProducer.build(producer.url);
+        if (newProducer) producerInfoArray.push(newProducer);
     }
     return producerInfoArray;
 }

@@ -7,8 +7,8 @@ import {  getProducersData } from "@services";
 (async () => {
     
 
-    // const producerArray = await getProducersData();
-    await getProducersData();
-    // console.dir(producerArray);
+    const producerArray = await getProducersData();
+    // await getProducersData();
+    console.dir(producerArray);
 
 })()
