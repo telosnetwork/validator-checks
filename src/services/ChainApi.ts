@@ -1,13 +1,14 @@
 import { JsonRpc } from 'eosjs';
-import fetch from 'node-fetch';
 import { ApiParams, FilterTuple, RowResults, ResultsTuple } from '@types';
 import { ChainInfo } from 'types/ChainInfo';
+import fetch from 'node-fetch';
 
+const mainNet = 'http://mainnet.telos.net';
 export class ChainApi {
 
   public rpc: any;
 
-  constructor(endpoint: string, fetch: any){
+  constructor(endpoint = mainNet){
     this.rpc = new JsonRpc(endpoint, { fetch });
   }
 
@@ -45,7 +46,7 @@ export class ChainApi {
   * @param limit optional results limit
   * @param filter optional tuple [table property, value to filter by] to filter results, must be passed with lowerBound and limit
   */
-  public async getProducers(lowerBound = '', limit = 50, filter?: FilterTuple): Promise<ResultsTuple> {
+  public async getProducers(lowerBound = '', limit = 200, filter?: FilterTuple): Promise<ResultsTuple> {
     let next_key = "";
     let producerArray = [];
 
@@ -66,9 +67,4 @@ export class ChainApi {
     const schedule = await this.rpc.get_producer_schedule();
     return schedule.active.producers;
   }
-}
-
-
-export function getChainApi(): ChainApi{
-  return new ChainApi('http://mainnet.telos.net', fetch);
 }
