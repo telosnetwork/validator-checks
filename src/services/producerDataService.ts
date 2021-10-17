@@ -1,16 +1,16 @@
 import axios from 'axios';
-import { BlockProducer, ResultsTuple } from "@types";
 import { ChainApi } from "@services";
+import { BlockProducer, Chains, NetworkNode, ResultsTuple } from "@types";
 
 const mainNetUrl = 'https://mainnet.telos.net';
 const testNetUrl = 'https://testnet.telos.net';
 const chainInfo = '/v1/chain/get_info';
 const chainPath = '/chains.json';
 
-let chainApi: any;
+let chainApi: ChainApi;
 let chainId: string;
 let mainNetJsonPath: string;
-let testChainApi: any;
+let testChainApi: ChainApi;
 let testChainId: string;
 let testNetJsonPath: string;
 
@@ -25,12 +25,12 @@ export async function getProducerData(limit=10, lower_bound = '',  mainNet = mai
     const next_key = producerData[1];
     const producerInfoArray: BlockProducer[] = [];
 
-    for (const producer of producers as any){
+    for (const producer of producers as BlockProducer[]){
 
         const chainData = await getData(producer.url, chainPath);
 
         if (chainData && typeof chainData !== 'string'){
-          producer.chains = chainData.chains 
+          producer.chains = chainData.chains as Chains;
           mainNetJsonPath = producer.chains[chainId];
           testNetJsonPath = producer.chains[testChainId]; 
         }
@@ -40,11 +40,11 @@ export async function getProducerData(limit=10, lower_bound = '',  mainNet = mai
 
             if (jsonData && typeof jsonData !== 'string'){
                 producer.org = jsonData.org;
-                producer.nodes = jsonData.nodes;
+                producer.nodes = jsonData.nodes as NetworkNode[];
                 const queryNode = getQueryNode(producer.nodes);
                 if (queryNode){          
-                    producer.apiVerified = await verifyEndpoint(queryNode.api_endpoint);
-                    producer.sslVerified = await verifyEndpoint(queryNode.ssl_endpoint);
+                    producer.apiVerified = await verifyEndpoint(queryNode.api_endpoint as string);
+                    producer.sslVerified = await verifyEndpoint(queryNode.ssl_endpoint as string);
                 }
             }
         }
@@ -54,8 +54,8 @@ export async function getProducerData(limit=10, lower_bound = '',  mainNet = mai
             if (jsonData && typeof jsonData !== 'string'){
                 const queryNode = getQueryNode(jsonData.nodes);
                 if (queryNode){          
-                  producer.apiVerifiedTestNet = await verifyEndpoint(queryNode.api_endpoint);
-                  producer.sslVerifiedTestNet = await verifyEndpoint(queryNode.ssl_endpoint);
+                  producer.apiVerifiedTestNet = await verifyEndpoint(queryNode.api_endpoint as string);
+                  producer.sslVerifiedTestNet = await verifyEndpoint(queryNode.ssl_endpoint as string);
                 }
             }
         }
@@ -67,7 +67,6 @@ export async function getProducerData(limit=10, lower_bound = '',  mainNet = mai
 
 async function getData(url: string, path: string): Promise<any>{
     try{
-        console.log(url, path);
         const rawData = await axios.get(`${url}${path}`);
         return rawData.data;
     }catch (e){
@@ -75,8 +74,8 @@ async function getData(url: string, path: string): Promise<any>{
     }
 }
 
-function getQueryNode(nodes: any): any{
-    return nodes.filter((node: any) => node.node_type === 'query')[0];
+function getQueryNode(nodes: NetworkNode[]): NetworkNode{
+    return nodes.filter((node: NetworkNode) => node.node_type === 'query')[0];
 }
 
 async function verifyEndpoint(endpoint: string): Promise<boolean> {

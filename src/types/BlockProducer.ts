@@ -1,3 +1,4 @@
+import { NetworkNode, Chains } from "@types";
 export interface BlockProducer {
     owner: string;
     total_votes: string;
@@ -17,8 +18,8 @@ export interface BlockProducer {
     kick_penalty_hours: number;
     last_time_kicked: string;
     org?: any[];
-    nodes?: any[];
-    chains?: any[];
+    nodes?: NetworkNode[];
+    chains?: Chains;
     apiVerified?: boolean;
     sslVerified?: boolean;
     apiVerifiedTestNet?: boolean;
