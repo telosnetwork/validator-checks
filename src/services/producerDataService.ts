@@ -14,13 +14,20 @@ let testChainApi: ChainApi;
 let testChainId: string;
 let testNetJsonPath: string;
 
-export async function getProducerData(limit=10, lower_bound = '',  mainNet = mainNetUrl, testNet = testNetUrl): Promise<ResultsTuple> {
+/**
+ * @param limit optional results limit
+ * @param lowerBound optional key to set if more results than limit on previous call, use 'owner' property for single bp
+ * @param mainNet optional value to set main net url, default is Telos main net
+ * @param testNet optional value to set test net url, default is Telos test net
+ */
+export async function getProducerData(limit=10, lowerBound = '',  mainNet = mainNetUrl, testNet = testNetUrl): Promise<ResultsTuple> {
+    
     chainApi = new ChainApi(mainNet);
     chainId = (await chainApi.getInfo()).chain_id;
     testChainApi = new ChainApi(testNet);
     testChainId = (await testChainApi.getInfo()).chain_id;
 
-    const producerData = await chainApi.getProducers(lower_bound, limit);
+    const producerData = await chainApi.getProducers(lowerBound, limit);
     const producers = producerData[0];
     const next_key = producerData[1];
     const producerInfoArray: BlockProducer[] = [];
@@ -65,6 +72,10 @@ export async function getProducerData(limit=10, lower_bound = '',  mainNet = mai
     return [producerInfoArray, next_key];
 }
 
+/**
+ * @param url block producer website root url string with no trailing '/' 
+ * @param path .json path with leading '/' 
+ */
 async function getData(url: string, path: string): Promise<any>{
     try{
         const rawData = await axios.get(`${url}${path}`);
@@ -74,10 +85,16 @@ async function getData(url: string, path: string): Promise<any>{
     }
 }
 
+/**
+ * @param nodes nodes array from rpc producer object
+ */
 function getQueryNode(nodes: NetworkNode[]): NetworkNode{
     return nodes.filter((node: NetworkNode) => node.node_type === 'query')[0];
 }
 
+/**
+ * @param endpoint url string with no trailing '/' that calls chain info 
+ */
 async function verifyEndpoint(endpoint: string): Promise<boolean> {
     try {
         await axios.get(`${endpoint}${chainInfo}`);
