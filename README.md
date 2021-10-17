@@ -27,7 +27,7 @@
   - `testNet` : url (string) for test net, default 'https://testnet.telos.net'
 
   **Return Value**
-  - `[BlockProducerData[], nextKey]`
+  - `[BlockProducer[], nextKey]`
   
   - `BlockProducer[]` : array of block producer data properties
   - `nextKey` : string that can be passed as `lowerBound` in subsequent call to get next set of data
