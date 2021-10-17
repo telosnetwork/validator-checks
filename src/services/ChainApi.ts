@@ -1,23 +1,23 @@
-import { JsonRpc } from 'eosjs';
-import { ApiParams, FilterTuple, RowResults, ResultsTuple} from '@types';
-import { ChainInfo } from 'types/ChainInfo';
 import fetch from 'node-fetch';
+import { JsonRpc } from 'eosjs';
+import { GetAccountResult, GetInfoResult, GetTableRowsResult, ProducerAuthority } from 'eosjs/dist/eosjs-rpc-interfaces';
+import { ApiParams, FilterTuple, ResultsTuple, BlockProducer} from '@types';
 
 const mainNet = 'http://mainnet.telos.net';
 export class ChainApi {
 
-  public rpc: any;
+  public rpc: JsonRpc;
 
   constructor(endpoint = mainNet){
     this.rpc = new JsonRpc(endpoint, { fetch });
   }
 
-  public async getTable(params: ApiParams): Promise<RowResults> {
+  public async getTable(params: ApiParams): Promise<GetTableRowsResult> {
     const results = await this.rpc.get_table_rows(params);
     return results;
   }
 
-  public async getInfo():Promise<ChainInfo> {
+  public async getInfo():Promise<GetInfoResult> {
     return await this.rpc.get_info();
   }
 
@@ -37,8 +37,8 @@ export class ChainApi {
     return [producerArray, next_key];
   }
 
-  public filterByPropertyValue(array: any[], filter: FilterTuple): any[]{
-    return array.filter((a: any)=> { return a[filter[0]] === filter[1]})
+  public filterByPropertyValue(array: BlockProducer[], filter: FilterTuple): BlockProducer[]{
+    return array.filter((producer: BlockProducer)=> { return producer[filter[0]] === filter[1]})
   }
 
  /**
@@ -54,17 +54,17 @@ export class ChainApi {
 
     if (results.more) next_key = results.more;
 
-    producerArray = filter === undefined ? results.rows : this.filterByPropertyValue(results.rows, filter);
+    producerArray = filter === undefined ? results.rows : this.filterByPropertyValue(results.rows as BlockProducer[], filter);
 
-    return [producerArray, next_key];
+    return [producerArray as BlockProducer[], next_key];
   }
 
-  public async getAccount( accountName: string): Promise<any>{
+  public async getAccount( accountName: string): Promise<GetAccountResult>{
     return await this.rpc.get_account(accountName);
   }
 
-  public async getProducerSchedule(): Promise<any>{
+  public async getActiveProducerSchedule(): Promise<ProducerAuthority[]>{
     const schedule = await this.rpc.get_producer_schedule();
-    return schedule.active.producers;
+    return schedule && schedule.active ? schedule.active.producers : [] as ProducerAuthority[]
   }
 }

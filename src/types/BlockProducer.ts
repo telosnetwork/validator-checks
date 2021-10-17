@@ -1,5 +1,6 @@
 import { NetworkNode, Chains } from "@types";
 export interface BlockProducer {
+    [key: string]: any;
     owner: string;
     total_votes: string;
     producer_key: string;
