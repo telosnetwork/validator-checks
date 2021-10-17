@@ -27,16 +27,15 @@
   - `testNet` : url (string) for test net, default 'https://testnet.telos.net'
 
   **Return Value**
-  - `[BlockProducer[], nextKey]`
-  - `BlockProducer[]` : array of block producer data objects
-  - `nextKey` : string that can be passed as `lowerBound` in subsequent call to get next set of data
+  - `{ data: BlockProducer[], key: string }`
+  - `BlockProducer[]` : array of block producer composite data objects
+  - `nextKey` : passed as `lowerBound` in subsequent call to get next set of data
 
   **Example Usage**
 ``` 
     // use defaults (50, '', 'https://mainnet.telos.net', 'https://testnet.telos.net') 
     await getProducerData();
 ```
-
 ``` 
     // get data about a single block producer 
     await getProducerData(1, 'caleosblocks');
@@ -44,5 +43,5 @@
 ``` 
     // get next set of data
     const firstSet = await getProducerData(3); 
-    const secondSet = await getProducerData(3, firstSet[1]);
+    const secondSet = await getProducerData(3, firstSet.key);
 ```
