@@ -33,14 +33,17 @@
   - `nextKey` : string that can be passed as `lowerBound` in subsequent call to get next set of data
 
   **Example Usage**
-``` \/\/ use defaults (50, '', 'https://mainnet.telos.net', 'https://testnet.telos.net') 
+``` 
+    // use defaults (50, '', 'https://mainnet.telos.net', 'https://testnet.telos.net') 
     await getProducerData();
 ```
 
-``` \/\/ get data about a single block producer
+``` 
+    // get data about a single block producer 
     await getProducer(1, 'caleosblocks');
 ```
-``` \/\/ get next set of data
+``` 
+    // get next set of data
     const firstSet = await getProducer(3); 
     const secondSet = await getProducers(3, firstSet[1]);
 ```
