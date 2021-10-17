@@ -1,4 +1,6 @@
-export interface BlockProducerInfo {
+import { NetworkNode, Chains } from "@types";
+export interface BlockProducer {
+    [key: string]: any;
     owner: string;
     total_votes: string;
     producer_key: string;
@@ -16,4 +18,11 @@ export interface BlockProducerInfo {
     times_kicked: number;
     kick_penalty_hours: number;
     last_time_kicked: string;
+    org?: any[];
+    nodes?: NetworkNode[];
+    chains?: Chains;
+    apiVerified?: boolean;
+    sslVerified?: boolean;
+    apiVerifiedTestNet?: boolean;
+    sslVerifiedTestNet?: boolean;
 }

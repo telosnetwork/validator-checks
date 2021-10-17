@@ -8,7 +8,6 @@
   "license": "-",
   "private": true,
   "_moduleAliases": {
-    "@classes": "./src/classes",
     "@services": "./src/services",
     "@types": "./src/types"
   },

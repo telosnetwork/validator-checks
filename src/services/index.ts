@@ -1,3 +1,3 @@
-export { getChainApi } from "./chainApi";
-export { getProducersInfo } from "./getProducerInfo";
+export { ChainApi } from "./ChainApi";
+export { getProducerData } from "./producerDataService";
 

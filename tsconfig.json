@@ -22,7 +22,6 @@
     "baseUrl": "./src",
     "paths": {
       "@types": ["types"],
-      "@classes": ["classes"],
       "@services": ["services"]
     },
     "types": [
