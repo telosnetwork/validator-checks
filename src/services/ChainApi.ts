@@ -40,7 +40,7 @@ export class ChainApi {
 
     producerArray = filter === undefined ? results.rows : this.filterByProperty(results.rows, filter);
 
-    return [producerArray, next_key];
+    return { data: producerArray, key: next_key};
   }
 
   /**
@@ -68,7 +68,7 @@ export class ChainApi {
       producerArray = this.filterByProperty(producerArray, filter);
     }
 
-    return [producerArray as BlockProducer[], next_key];
+    return {data: producerArray as BlockProducer[], key: next_key};
   }
 
   /**

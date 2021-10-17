@@ -28,8 +28,8 @@ export async function getProducerData(limit=1, lowerBound = '',  mainNet = mainN
     testChainId = (await testChainApi.getInfo()).chain_id;
 
     const producerData = await chainApi.getProducers(lowerBound, limit);
-    const producers = producerData[0];
-    const next_key = producerData[1];
+    const producers = producerData.data;
+    const next_key = producerData.key;
     const producerInfoArray: BlockProducer[] = [];
 
     for (const producer of producers as BlockProducer[]){
@@ -73,7 +73,7 @@ export async function getProducerData(limit=1, lowerBound = '',  mainNet = mainN
 
         producerInfoArray.push(producer);
     }
-    return [producerInfoArray, next_key];
+    return { data: producerInfoArray, key: next_key };
 }
 
 /**

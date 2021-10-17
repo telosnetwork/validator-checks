@@ -28,8 +28,7 @@
 
   **Return Value**
   - `[BlockProducer[], nextKey]`
-  
-  - `BlockProducer[]` : array of block producer data properties
+  - `BlockProducer[]` : array of block producer data objects
   - `nextKey` : string that can be passed as `lowerBound` in subsequent call to get next set of data
 
   **Example Usage**
