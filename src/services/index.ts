@@ -1,3 +1,3 @@
 export { ChainApi } from "./ChainApi";
-export { getProducerData } from "./producerDataService";
+export { getProducerData, verifyEndpoint } from "./producerDataService";
 

@@ -1,38 +1,60 @@
-import { getProducerData } from '@services';
 import axios from 'axios';
-
-jest.mock('axios');
+import { getProducerData, verifyEndpoint } from '@services';
 
 describe('getProducerData', () => {
     
     const testUrlArray = "https://caleos.io"
-    // const bpPath = '/bp.json';
+    const bpPath = '/bp.json';
+    const testNetJsonPath = '/testnet-bp.json';
     const chainPath = '/chains.json';
-    // const mockReturnObj = { data: {org: { candidate_name: 'test-name'} }};
 
-    it('hits bp.json endpoint', async () => {
-        // (axios as any).get.mockResolvedValueOnce(mockReturnObj);
+    it('uses default values if no params passed', async () => {
+        const producerData = await getProducerData();
 
-        await getProducerData(1, 'caleosblocks');
-        expect(axios.get).toHaveBeenCalledWith(`${testUrlArray}${chainPath}`);
+        expect(producerData).toBeInstanceOf(Array);
+        expect(producerData[0]).toBeInstanceOf(Array);
+        expect(typeof producerData[1]).toBe('string');
     });
 
+    it('hits chains.json endpoint', async () => {
+        const methodSpy = jest.spyOn(axios, 'get');
 
+        await getProducerData(1, 'caleosblocks');
 
-    // it('hits chains.json endpoint', async () => {
-    //     (axios as any).get.mockResolvedValueOnce(mockReturnObj);
+        expect(methodSpy).toHaveBeenCalledWith(`${testUrlArray}${chainPath}`);
+    });
 
-    //     await getProducersInfo(testUrlArray);
-    //     expect(axios.get).toHaveBeenCalledWith(`${testUrlArray[0]}/${chainPath}`);
-    // });
+    it('hits bp.json endpoint', async () => {
+        const methodSpy = jest.spyOn(axios, 'get');
 
-    // it('throws error if bad data', async () => {
-    //     const mockReturnObj = { data: 'test'};
+        await getProducerData(1, 'caleosblocks');
 
-    //     console.error = jest.fn();
-    //     (axios as any).get.mockResolvedValueOnce(mockReturnObj);
+        expect(methodSpy).toHaveBeenCalledWith(`${testUrlArray}${bpPath}`);
+    });
 
-    //     await getProducersInfo(testUrlArray);
-    //     expect(console.error).toHaveBeenCalled();
-    // });
-})
+    it('hits testnet bp.json endpoint', async () => {
+        const methodSpy = jest.spyOn(axios, 'get');
+
+        await getProducerData(1, 'caleosblocks');
+
+        expect(methodSpy).toHaveBeenCalledWith(`${testUrlArray}${testNetJsonPath}`);
+    });
+
+    it('returns array length of limit', async () => {
+        const limit = 2;
+
+        const result = await getProducerData(limit);
+
+        expect(result[0].length).toStrictEqual(limit);
+    }, 10000);
+});
+
+describe('verifyEndpoint', () => {
+    it('returns false if endpoint ping fails', async () =>{
+        const testEndpoint = 'https://telos.net';
+
+        const verified = await verifyEndpoint(testEndpoint);
+
+        expect(verified).toStrictEqual(false);
+    });
+});

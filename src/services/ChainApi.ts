@@ -65,7 +65,7 @@ export class ChainApi {
     if (results.more) next_key = results.more;
 
     if (filter !== undefined){
-      producerArray = this.filterByProperty(producerArray, filter)
+      producerArray = this.filterByProperty(producerArray, filter);
     }
 
     return [producerArray as BlockProducer[], next_key];

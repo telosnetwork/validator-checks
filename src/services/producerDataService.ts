@@ -20,7 +20,7 @@ let testNetJsonPath: string;
  * @param mainNet optional value to set main net url, default is Telos main net
  * @param testNet optional value to set test net url, default is Telos test net
  */
-export async function getProducerData(limit=10, lowerBound = '',  mainNet = mainNetUrl, testNet = testNetUrl): Promise<ResultsTuple> {
+export async function getProducerData(limit=1, lowerBound = '',  mainNet = mainNetUrl, testNet = testNetUrl): Promise<ResultsTuple> {
     
     chainApi = new ChainApi(mainNet);
     chainId = (await chainApi.getInfo()).chain_id;
@@ -41,7 +41,8 @@ export async function getProducerData(limit=10, lowerBound = '',  mainNet = main
           mainNetJsonPath = producer.chains[chainId];
           testNetJsonPath = producer.chains[testChainId]; 
         }
-
+        
+        /* istanbul ignore else */
         if (mainNetJsonPath){
             const jsonData = await getData(producer.url, mainNetJsonPath);
 
@@ -49,6 +50,7 @@ export async function getProducerData(limit=10, lowerBound = '',  mainNet = main
                 producer.org = jsonData.org;
                 producer.nodes = jsonData.nodes as NetworkNode[];
                 const queryNode = getQueryNode(producer.nodes);
+                /* istanbul ignore else */
                 if (queryNode){          
                     producer.apiVerified = await verifyEndpoint(queryNode.api_endpoint as string);
                     producer.sslVerified = await verifyEndpoint(queryNode.ssl_endpoint as string);
@@ -56,10 +58,12 @@ export async function getProducerData(limit=10, lowerBound = '',  mainNet = main
             }
         }
 
+        /* istanbul ignore else */
         if (testNetJsonPath){
             const jsonData = await getData(producer.url, testNetJsonPath);
             if (jsonData && typeof jsonData !== 'string'){
                 const queryNode = getQueryNode(jsonData.nodes);
+                /* istanbul ignore else */
                 if (queryNode){          
                   producer.apiVerifiedTestNet = await verifyEndpoint(queryNode.api_endpoint as string);
                   producer.sslVerifiedTestNet = await verifyEndpoint(queryNode.ssl_endpoint as string);
@@ -95,7 +99,7 @@ function getQueryNode(nodes: NetworkNode[]): NetworkNode{
 /**
  * @param endpoint url string with no trailing '/' that calls chain info 
  */
-async function verifyEndpoint(endpoint: string): Promise<boolean> {
+export async function verifyEndpoint(endpoint: string): Promise<boolean> {
     try {
         await axios.get(`${endpoint}${chainInfo}`);
         return true;

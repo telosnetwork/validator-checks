@@ -5,6 +5,7 @@ import { ApiParams, FilterTuple, BlockProducer } from '@types';
 describe('ChainApi', () => {
 
     let chainApi: ChainApi;
+
     const testUrl = 'https://mainnet.telos.net'
     const mockValue = {
         rows: [{ owner: 'test-owner'}],
@@ -185,5 +186,4 @@ describe('ChainApi', () => {
             expect(results).toEqual([]);
         });
     });
-
 });
