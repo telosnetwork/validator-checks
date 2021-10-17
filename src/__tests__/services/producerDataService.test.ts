@@ -5,7 +5,7 @@ jest.mock('axios');
 
 describe('getProducerData', () => {
     
-    const testUrlArray = "https://telos.caleos.io"
+    const testUrlArray = "https://caleos.io"
     // const bpPath = '/bp.json';
     const chainPath = '/chains.json';
     // const mockReturnObj = { data: {org: { candidate_name: 'test-name'} }};

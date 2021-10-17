@@ -14,16 +14,16 @@ export class ChainApi {
     this.rpc = new JsonRpc(endpoint, { fetch });
   }
 
+  public async getInfo():Promise<GetInfoResult> {
+    return await this.rpc.get_info();
+  }
+
   /**
    * @param params general params object for generic table query
    */
   public async getTable(params: ApiParams): Promise<GetTableRowsResult> {
     const results = await this.rpc.get_table_rows(params);
     return results;
-  }
-
-  public async getInfo():Promise<GetInfoResult> {
-    return await this.rpc.get_info();
   }
 
   /**
@@ -38,7 +38,7 @@ export class ChainApi {
     
     if (results.more && results.next_key) next_key = results.next_key;
 
-    producerArray = filter === undefined ? results.rows : this.filterByPropertyValue(results.rows, filter);
+    producerArray = filter === undefined ? results.rows : this.filterByProperty(results.rows, filter);
 
     return [producerArray, next_key];
   }
@@ -47,8 +47,8 @@ export class ChainApi {
    * @param array block producer object array to fileter by prop
    * @param filter optional tuple [table property, value to filter by] to filter results
    */
-  public filterByPropertyValue(array: BlockProducer[], filter: FilterTuple): BlockProducer[]{
-    return array.filter((producer: BlockProducer)=> { return producer[filter[0]] === filter[1]})
+  public filterByProperty(array: BlockProducer[], filter: FilterTuple): BlockProducer[]{
+    return array.filter((producer: BlockProducer) => producer[filter[0]] === filter[1]);
   }
 
   /**
@@ -58,13 +58,15 @@ export class ChainApi {
    */
   public async getProducers(lowerBound: string, limit: number, filter?: FilterTuple): Promise<ResultsTuple> {
     let next_key = "";
-    let producerArray = [];
 
     const results = await this.rpc.get_producers(true, lowerBound, limit);
+    let producerArray = results.rows as BlockProducer[];
 
     if (results.more) next_key = results.more;
 
-    producerArray = filter === undefined ? results.rows : this.filterByPropertyValue(results.rows as BlockProducer[], filter);
+    if (filter !== undefined){
+      producerArray = this.filterByProperty(producerArray, filter)
+    }
 
     return [producerArray as BlockProducer[], next_key];
   }
@@ -72,7 +74,7 @@ export class ChainApi {
   /**
    * @param accountName twelve character account name to get account details
    */
-  public async getAccount( accountName: string): Promise<GetAccountResult>{
+  public async getAccount( accountName: string): Promise<GetAccountResult> {
     return await this.rpc.get_account(accountName);
   }
 
