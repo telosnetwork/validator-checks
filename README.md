@@ -18,13 +18,13 @@
 ## Usage
   
   **Method**
-  - `getProducerData( limit, lowerBound, mainNet, testNet )`
+  - `getProducerData( limit: number, lowerBound: string, mainNet: string, testNet: string )`
   
   **Optional Params**
-  - `limit` : #(int) of results to return from query, default 50
-  - `lowerBound` : key (string) from previous result to query subsequent data if results exceed limit, default '' 
-  - `mainNet` : url (string) for main net, default 'https://mainnet.telos.net'
-  - `testNet` : url (string) for test net, default 'https://testnet.telos.net'
+  - `limit` : # of results to return from query, default 50
+  - `lowerBound` : key from previous result to query subsequent data if results exceed limit, default '' 
+  - `mainNet` : url for main net, default 'https://mainnet.telos.net'
+  - `testNet` : url for test net, default 'https://testnet.telos.net'
 
   **Return Value**
   - `{ data: BlockProducer[], key: string }`
