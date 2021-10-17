@@ -1,6 +1,6 @@
 export { ApiParams } from "./ApiParams";
 export { BlockProducer } from "./BlockProducer";
-export { FilterTuple } from "./FilterTuple";
-export { ResultsTuple } from "./ResultsTuple";
+export { Filter } from "./Filter";
+export { Results } from "./Results";
 export { NetworkNode } from "./NetworkNode";
 export { Chains } from "./Chains";

@@ -1,6 +1,6 @@
 import { GetAccountResult } from 'eosjs/dist/eosjs-rpc-interfaces';
 import { ChainApi } from '@services';
-import { ApiParams, FilterTuple, BlockProducer } from '@types';
+import { ApiParams, Filter, BlockProducer } from '@types';
 
 describe('ChainApi', () => {
 
@@ -55,7 +55,7 @@ describe('ChainApi', () => {
             
             const results = await chainApi.getTableInfo({} as ApiParams);
             
-            expect(results[1]).toEqual('');
+            expect(results.key).toEqual('');
         });
 
         it('returns empty string if next_key is undefined', async () => {
@@ -65,7 +65,7 @@ describe('ChainApi', () => {
             
             const results = await chainApi.getTableInfo({} as ApiParams);
             
-            expect(results[1]).toEqual('');
+            expect(results.key).toEqual('');
         });
 
         it('returns next_key if defined', async () => {
@@ -75,11 +75,11 @@ describe('ChainApi', () => {
             
             const results = await chainApi.getTableInfo({} as ApiParams);
             
-            expect(results[1]).toEqual(mockValue.next_key);
+            expect(results.key).toEqual(mockValue.next_key);
         });
 
         it('calls filterByProperty if filter param', async () => {
-            const mockFilter = ['owner', 'test-owner'] as FilterTuple;
+            const mockFilter = { prop: 'owner', value: 'test-owner'} as Filter;
             chainApi.getTable = jest.fn().mockResolvedValue(mockValue);
             chainApi.filterByProperty = jest.fn();
             
@@ -91,10 +91,10 @@ describe('ChainApi', () => {
 
     describe('filterByProperty', () => {
         it('returns filtered results', () => {
-            const testFilter = ['owner', 'test-owner'] as FilterTuple;
+            const mockFilter = { prop: 'owner', value: 'test-owner'} as Filter;
             const mockArray = [{ owner: 'test-owner'} as BlockProducer, {owner: 'filtered-out'} as BlockProducer] as BlockProducer[];
             
-            const results = chainApi.filterByProperty(mockArray, testFilter);
+            const results = chainApi.filterByProperty(mockArray, mockFilter);
 
             expect(results).toStrictEqual([mockArray[0]]);
         });
@@ -114,7 +114,7 @@ describe('ChainApi', () => {
         });
 
         it('returns next_key for pagination', async () => {
-            const expected = [ mockValue.rows, mockValue.more];
+            const expected = { data: mockValue.rows, key: mockValue.more};
             chainApi.rpc.get_producers = jest.fn().mockResolvedValue(mockValue)
 
             const result = await chainApi.getProducers(mockLowerBound, mockLimit);
@@ -123,7 +123,7 @@ describe('ChainApi', () => {
         });
 
         it('returns empty string if `more` is false (all results returned)', async () => {
-            const expected = [ mockValue.rows, ''];
+            const expected = { data: mockValue.rows, key: ''};
             mockValue.more = false;
             chainApi.rpc.get_producers = jest.fn().mockResolvedValue(mockValue)
 
@@ -133,11 +133,11 @@ describe('ChainApi', () => {
         });
 
         it('calls filterByProperty if optional filter param provided', async () => {
-            const testFilter = ['owner', 'filtered'] as FilterTuple;
+            const mockFilter = { prop: 'owner', value: 'filtered'} as Filter;
             mockValue.rows = [{ owner: 'test-owner'} as BlockProducer, {owner: 'filtered'} as BlockProducer];
             chainApi.filterByProperty = jest.fn();
 
-            await chainApi.getProducers(mockLowerBound, mockLimit, testFilter);
+            await chainApi.getProducers(mockLowerBound, mockLimit, mockFilter);
 
             expect(chainApi.filterByProperty).toHaveBeenCalled();
         });

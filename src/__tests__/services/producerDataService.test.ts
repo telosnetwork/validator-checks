@@ -11,9 +11,9 @@ describe('getProducerData', () => {
     it('uses default values if no params passed', async () => {
         const producerData = await getProducerData();
 
-        expect(producerData).toBeInstanceOf(Array);
-        expect(producerData[0]).toBeInstanceOf(Array);
-        expect(typeof producerData[1]).toBe('string');
+        expect(producerData).toBeInstanceOf(Object);
+        expect(producerData.data).toBeInstanceOf(Array);
+        expect(typeof producerData.key).toBe('string');
     });
 
     it('hits chains.json endpoint', async () => {
@@ -45,7 +45,7 @@ describe('getProducerData', () => {
 
         const result = await getProducerData(limit);
 
-        expect(result[0].length).toStrictEqual(limit);
+        expect(result.data.length).toStrictEqual(limit);
     }, 10000);
 });
 

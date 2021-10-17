@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 import { JsonRpc } from 'eosjs';
 import { GetAccountResult, GetInfoResult, GetTableRowsResult, ProducerAuthority } from 'eosjs/dist/eosjs-rpc-interfaces';
-import { ApiParams, FilterTuple, ResultsTuple, BlockProducer} from '@types';
+import { ApiParams, Filter, Results, BlockProducer} from '@types';
 
 export class ChainApi {
 
@@ -30,7 +30,7 @@ export class ChainApi {
    * @param params general params object for generic table query
    * @param filter is a tuple [table property, value to filter by] to optionally filter results
    */
-  public async getTableInfo(params: ApiParams, filter?: FilterTuple): Promise<ResultsTuple> {
+  public async getTableInfo(params: ApiParams, filter?: Filter): Promise<Results> {
     let next_key = "";
     let producerArray = [];
 
@@ -47,8 +47,8 @@ export class ChainApi {
    * @param array block producer object array to fileter by prop
    * @param filter optional tuple [table property, value to filter by] to filter results
    */
-  public filterByProperty(array: BlockProducer[], filter: FilterTuple): BlockProducer[]{
-    return array.filter((producer: BlockProducer) => producer[filter[0]] === filter[1]);
+  public filterByProperty(array: BlockProducer[], filter: Filter): BlockProducer[]{
+    return array.filter((producer: BlockProducer) => producer[filter.prop] === filter.value);
   }
 
   /**
@@ -56,7 +56,7 @@ export class ChainApi {
    * @param limit optional results limit
    * @param filter optional tuple [table property, value to filter by] to filter results, must be passed with lowerBound and limit
    */
-  public async getProducers(lowerBound: string, limit: number, filter?: FilterTuple): Promise<ResultsTuple> {
+  public async getProducers(lowerBound: string, limit: number, filter?: Filter): Promise<Results> {
     let next_key = "";
 
     const results = await this.rpc.get_producers(true, lowerBound, limit);

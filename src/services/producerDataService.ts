@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { ChainApi } from "@services";
-import { BlockProducer, Chains, NetworkNode, ResultsTuple } from "@types";
+import { BlockProducer, Chains, NetworkNode, Results } from "@types";
 
 const mainNetUrl = 'https://mainnet.telos.net';
 const testNetUrl = 'https://testnet.telos.net';
@@ -20,7 +20,7 @@ let testNetJsonPath: string;
  * @param mainNet optional value to set main net url, default is Telos main net
  * @param testNet optional value to set test net url, default is Telos test net
  */
-export async function getProducerData(limit=1, lowerBound = '',  mainNet = mainNetUrl, testNet = testNetUrl): Promise<ResultsTuple> {
+export async function getProducerData(limit=1, lowerBound = '',  mainNet = mainNetUrl, testNet = testNetUrl): Promise<Results> {
     
     chainApi = new ChainApi(mainNet);
     chainId = (await chainApi.getInfo()).chain_id;
