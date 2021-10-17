@@ -40,10 +40,10 @@
 
 ``` 
     // get data about a single block producer 
-    await getProducer(1, 'caleosblocks');
+    await getProducerData(1, 'caleosblocks');
 ```
 ``` 
     // get next set of data
-    const firstSet = await getProducer(3); 
-    const secondSet = await getProducers(3, firstSet[1]);
+    const firstSet = await getProducerData(3); 
+    const secondSet = await getProducerData(3, firstSet[1]);
 ```
