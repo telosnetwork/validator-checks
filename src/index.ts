@@ -1,3 +1,4 @@
+import 'module-alias/register';
 import { getProducerData } from "@services";
 import { BlockProducer } from "@types";
 
