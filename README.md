@@ -10,38 +10,47 @@
 
 ## Installation
 
-@TODO installation & import instructions
-
-- `yarn add <package-name-tbd>`
-- `import { getProducerData } from <package-name-tbd>`
+- `yarn add validator-checks`
+- `import { getProducer, getProducers } from validator-checks`
 
 ## Usage
   
-  **Method**
-  - `getProducerData( limit: number, lowerBound: string, mainNet: string, testNet: string )`
+  **Methods**
+  - `getProducers( limit: number)`
+  - `getProducer( owner: string)`
+
   
   **Optional Params**
   - `limit` : # of results to return from query, default 50
-  - `lowerBound` : key from previous result to query subsequent data if results exceed limit, default '' 
-  - `mainNet` : url for main net, default 'https://mainnet.telos.net'
-  - `testNet` : url for test net, default 'https://testnet.telos.net'
+  - `owner` : block producer account name
 
   **Return Value**
-  - `{ data: BlockProducer[], key: string }`
-  - `BlockProducer[]` : array of block producer composite data objects
-  - `nextKey` : passed as `lowerBound` in subsequent call to get next set of data
+  - array of block producer data objects
+  @TODO add full object details
 
   **Example Usage**
 ``` 
-    // use defaults (50, '', 'https://mainnet.telos.net', 'https://testnet.telos.net') 
-    await getProducerData();
+    // get data about first 25 producers
+    await getProducers(25);
 ```
 ``` 
     // get data about a single block producer 
-    await getProducerData(1, 'caleosblocks');
+    await getProducer('caleosblocks');
 ```
-``` 
-    // get next set of data
-    const firstSet = await getProducerData(3); 
-    const secondSet = await getProducerData(3, firstSet.key);
+
+## Build From Source
+
 ```
+get clone https://github.com/telosnetwork/validator-checks.git
+cd validator-checks
+yarn
+
+//build for client
+yarn esbuild src/index.ts --bundle --minify --sourcemap=external --outfile=dist/esbuild/index.js 
+
+//build for node
+yarn esbuild src/index.ts --bundle --platform=node --minify --sourcemap=external --outfile=dist/esbuild/index.js 
+
+```
+
+

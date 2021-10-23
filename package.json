@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "performs criteria validation checks for block producers ",
   "type": "module",
-  "main": "main.js",
+  "main": "index.js",
   "repository": "https://github.com/telosnetwork/validator-checks.git",
   "author": "Don Peat",
   "license": "-",
@@ -13,7 +13,7 @@
     "@types": "./src/types"
   },
   "scripts": {
-    "cli": "ts-node src/main.ts",
+    "cli": "ts-node src/index.ts",
     "test": "jest",
     "lint": "eslint src/ --ext .js,.jsx,.ts,.tsx",
     "build": "tsc -p tsconfig.json",
