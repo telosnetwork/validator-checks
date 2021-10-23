@@ -1,9 +1,7 @@
-import "module-alias/register";
 import { getProducerData } from "@services";
 import { BlockProducer } from "@types";
 
 const FETCH_COUNT = 10;
-
 
 export async function getProducer(owner: string): Promise<BlockProducer[]>{
     const producer = await getProducerData(1, owner);
@@ -11,6 +9,7 @@ export async function getProducer(owner: string): Promise<BlockProducer[]>{
 }
 
 export async function getProducers(limit: number): Promise<BlockProducer[]>{
+
     const count = Math.floor( limit / FETCH_COUNT)
     const remainder = limit % FETCH_COUNT;
     let producerData = [] as BlockProducer[];
