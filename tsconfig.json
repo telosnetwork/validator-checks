@@ -18,7 +18,7 @@
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "sourceMap": true,
-    "outDir": "./",
+    "outDir": "./dist/client",
     "baseUrl": "./src",
     "paths": {
       "types": ["types"],

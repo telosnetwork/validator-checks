@@ -16,8 +16,13 @@
 ## Usage
 
   **Import**
+```
+//node
+import { getProducer, getProducers } from '@telosnetwork/validator-checks';  
 
-  `import { getProducer, getProducers } from '@telosnetwork/validator-checks';` 
+//client
+import { getProducer, getProducers } from '@telosnetwork/validator-checks/dist/client'; client
+```
 
   **Methods**
 ```
@@ -53,10 +58,13 @@ cd validator-checks
 yarn
 
 //build for client
-yarn esbuild src/index.ts --bundle --minify --sourcemap=external --outfile=dist/index.js
+yarn build-client
 
 //build for node
-yarn esbuild src/index.ts --bundle --minify --platform=node --sourcemap=external --outfile=dist/server.js
+yarn build-server
+
+//build for node
+yarn build-all
 
 ```
 

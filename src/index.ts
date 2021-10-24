@@ -28,9 +28,3 @@ export async function getProducers(limit = 50): Promise<BlockProducer[]>{
     }
     return producerData;
 }
-
-(async () => {
-
-    const test = await getProducers(2);
-    console.dir(test);
-})()
