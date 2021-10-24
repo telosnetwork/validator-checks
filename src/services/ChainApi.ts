@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 import { JsonRpc } from 'eosjs';
 import { GetAccountResult, GetInfoResult, GetTableRowsResult, ProducerAuthority } from 'eosjs/dist/eosjs-rpc-interfaces';
-import { ApiParams, Filter, Results, BlockProducer} from '@types';
+import { ApiParams, Filter, Results, BlockProducer} from 'types';
 
 export class ChainApi {
 

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getProducerData, verifyEndpoint } from '@services';
+import { getProducerData, verifyEndpoint } from '../services';
 
 describe('getProducerData', () => {
     

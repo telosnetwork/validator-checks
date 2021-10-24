@@ -1,4 +1,4 @@
-import { BlockProducer } from "@types";
+import { BlockProducer } from "types";
 
 export interface Results {
     data: BlockProducer[];

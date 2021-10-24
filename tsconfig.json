@@ -18,11 +18,11 @@
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "sourceMap": true,
-    "outDir": "./dist/tsc/",
+    "outDir": "./",
     "baseUrl": "./src",
     "paths": {
-      "@types": ["types"],
-      "@services": ["services"]
+      "types": ["types"],
+      "services": ["services"]
     },
     "types": [
       "node",
@@ -39,7 +39,6 @@
   ],
   "exclude": [
     "node_modules",
-    "**/*.test.ts",
-    "*.js"
+    "**/*.test.ts"
   ]
 }

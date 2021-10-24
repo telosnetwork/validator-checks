@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { ChainApi } from "@services";
-import { BlockProducer, Chains, NetworkNode, Results } from "@types";
+import { ChainApi } from "./ChainApi";
+import { BlockProducer, Chains, NetworkNode, Results } from "types";
 
 const mainNetUrl = 'https://mainnet.telos.net';
 const testNetUrl = 'https://testnet.telos.net';

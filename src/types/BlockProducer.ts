@@ -1,4 +1,4 @@
-import { NetworkNode, Chains } from "@types";
+import { NetworkNode, Chains } from "types";
 export interface BlockProducer {
     [key: string]: any;
     owner: string;

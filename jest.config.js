@@ -11,8 +11,8 @@ module.exports = {
     "^.+\\.(ts|tsx)$": "ts-jest"
   },
   moduleNameMapper: {
-    "@services": "<rootDir>/src/services/index",
-    "@types": "<rootDir>/src/types/index"
+    "services": "<rootDir>/src/services/index",
+    "types": "<rootDir>/src/types/index"
   },
   
 }

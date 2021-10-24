@@ -7,9 +7,9 @@
   "author": "Don Peat",
   "license": "-",
   "private": true,
-  "_moduleAliases": {
-    "@services": "./src/services",
-    "@types": "./src/types"
+  "paths": {
+    "services": "./src/services",
+    "types": "./src/types"
   },
   "scripts": {
     "cli": "ts-node src/index.ts",
@@ -25,7 +25,6 @@
     "@types/text-encoding": "^0.0.36",
     "@typescript-eslint/eslint-plugin": "^4.31.2",
     "@typescript-eslint/parser": "^4.31.2",
-    "esbuild": "^0.13.8",
     "eslint": "^7.32.0",
     "jest": "^27.2.1",
     "ts-jest": "^27.0.5",
@@ -36,7 +35,6 @@
     "@types/node-fetch": "2.5.4",
     "axios": "^0.21.4",
     "eosjs": "^22.1.0",
-    "module-alias": "^2.2.2",
     "node-fetch": "2.6.0"
   }
 }

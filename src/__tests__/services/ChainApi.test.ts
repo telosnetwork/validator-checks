@@ -1,6 +1,6 @@
 import { GetAccountResult } from 'eosjs/dist/eosjs-rpc-interfaces';
-import { ChainApi } from '@services';
-import { ApiParams, Filter, BlockProducer } from '@types';
+import { ChainApi } from '../services';
+import { ApiParams, Filter, BlockProducer } from '../types';
 
 describe('ChainApi', () => {
 

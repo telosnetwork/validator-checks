@@ -1,6 +1,5 @@
-import 'module-alias/register';
-import { getProducerData } from "@services";
-import { BlockProducer } from "@types";
+import { getProducerData } from "./services";
+import { BlockProducer } from "types";
 
 const FETCH_COUNT = 10;
 
@@ -29,3 +28,9 @@ export async function getProducers(limit = 50): Promise<BlockProducer[]>{
     }
     return producerData;
 }
+
+(async () => {
+
+    const test = await getProducers(2);
+    console.dir(test);
+})()
