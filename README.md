@@ -28,13 +28,13 @@ getProducer( owner: string)
   
   **Params**
   
-  `limit`(optional) : # of results to return from query, default is 50
+    `limit`(optional) : # of results to return from query, default is 50
   
-  `owner` (required) : block producer account name
+    `owner` (required) : block producer account name
 
   **Return Value**
 
-   array of block producer data objects
+    array of block producer data objects
 
   **Example Usage**
 ``` 
