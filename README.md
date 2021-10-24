@@ -8,35 +8,40 @@
 - Verify Block Producer JSON data
 
 ## Install
-`npm install @telosnetwork/validator-checks`
-`yarn add @telosnetwork/validator-checks`
+
+  **npm**
+    `npm install @telosnetwork/validator-checks`
+  
+  **yarn**
+    `yarn add @telosnetwork/validator-checks`
 
 ## Usage
 
   **Import**
+
   `import { getProducer, getProducers } from '@telosnetwork/validator-checks'` 
 
   **Methods**
-  ```
-   getProducers( limit: number)
-   getProducer( owner: string)
-  ```
+```
+getProducers( limit: number)
+
+getProducer( owner: string)
+```
   
-  **Optional Params**
-  `limit` : # of results to return from query, default 50
-  `owner` : block producer account name
+  **Params**
+  - `limit`(optional) : # of results to return from query, default is 50
+  - `owner` (required) : block producer account name
 
   **Return Value**
   - array of block producer data objects
 
   **Example Usage**
 ``` 
-    // get data about first 25 producers
-    await getProducers(25);
-```
-``` 
-    // get data about a single block producer 
-    await getProducer('caleosblocks');
+// get data about first 25 producers
+await getProducers(25);
+
+// get data about a single block producer 
+await getProducer('caleosblocks');
 ```
 
 ## Build From Source
