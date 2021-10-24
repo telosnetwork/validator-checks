@@ -7,7 +7,6 @@
   "repository": "https://github.com/telosnetwork/validator-checks.git",
   "author": "Don Peat",
   "license": "-",
-  "private": true,
   "paths": {
     "services": "./src/services",
     "types": "./src/types"
