@@ -1,4 +1,4 @@
-# Block Producer Stats Validation Tool
+# Block Producer Validation Tool
 
 ## Validation Features
 
