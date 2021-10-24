@@ -7,22 +7,24 @@
 - Check & verify available api features
 - Verify Block Producer JSON data
 
-## Install Module
-
-- `yarn add @validator-checks`
+## Install
+`npm install @telosnetwork/validator-checks`
+`yarn add @telosnetwork/validator-checks`
 
 ## Usage
 
   **Import**
-  - `import { getProducer, getProducers } from 'validator-checks'` 
+  `import { getProducer, getProducers } from '@telosnetwork/validator-checks'` 
 
   **Methods**
-  - `getProducers( limit: number)`
-  - `getProducer( owner: string)`
+  ```
+   getProducers( limit: number)
+   getProducer( owner: string)
+  ```
   
   **Optional Params**
-  - `limit` : # of results to return from query, default 50
-  - `owner` : block producer account name
+  `limit` : # of results to return from query, default 50
+  `owner` : block producer account name
 
   **Return Value**
   - array of block producer data objects
