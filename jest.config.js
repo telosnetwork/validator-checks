@@ -1,6 +1,3 @@
-// import pathsToModuleNameMapper from 'ts-jest/utils';
-// import compilerOptions from './tsconfig';
-
 module.exports = {
   roots: ['<rootDir>/src'],
   testMatch: [
@@ -11,8 +8,7 @@ module.exports = {
     "^.+\\.(ts|tsx)$": "ts-jest"
   },
   moduleNameMapper: {
-    "services": "<rootDir>/src/services/index",
-    "types": "<rootDir>/src/types/index"
-  },
-  
+    "services": "<rootDir>/src/services",
+    "types": "<rootDir>/src/types"
+  }
 }

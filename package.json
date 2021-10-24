@@ -2,7 +2,8 @@
   "name": "validator-checks",
   "version": "1.0.0",
   "description": "performs criteria validation checks for block producers ",
-  "main": "index.js",
+  "main": "dist/server.js",
+  "browser": "dist/index.js",
   "repository": "https://github.com/telosnetwork/validator-checks.git",
   "author": "Don Peat",
   "license": "-",
@@ -16,7 +17,10 @@
     "test": "jest",
     "lint": "eslint src/ --ext .js,.jsx,.ts,.tsx",
     "build": "tsc -p tsconfig.json",
-    "clean": "rm -rf dist build",
+    "build-client": "esbuild src/index.ts --bundle --minify --sourcemap=external --outfile=dist/index.js",
+    "build-server": "esbuild src/index.ts --bundle --minify --platform=node --sourcemap=external --outfile=dist/server.js",
+    "build-all": "yarn clean && yarn build-client && yarn build-server",
+    "clean": "rm -rf dist",
     "ts-node": "ts-node"
   },
   "devDependencies": {

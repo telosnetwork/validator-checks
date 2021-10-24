@@ -2,4 +2,4 @@
 coverage
 *.log
 yarn.lock
-
+/src/__tests__/

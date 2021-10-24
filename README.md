@@ -1,4 +1,5 @@
 # Block Producer Stats Validation Tool
+
 ## Validation Features
 
 - Main net ssl & api endpoint validation
@@ -6,19 +7,18 @@
 - Check & verify available api features
 - Verify Block Producer JSON data
 
-@TODO add validation specifics 
+## Install Module
 
-## Installation
-
-- `yarn add validator-checks`
-- `import { getProducer, getProducers } from validator-checks`
+- `yarn add @validator-checks`
 
 ## Usage
-  
+
+  **Import**
+  - `import { getProducer, getProducers } from 'validator-checks'` 
+
   **Methods**
   - `getProducers( limit: number)`
   - `getProducer( owner: string)`
-
   
   **Optional Params**
   - `limit` : # of results to return from query, default 50
@@ -26,7 +26,6 @@
 
   **Return Value**
   - array of block producer data objects
-  @TODO add full object details
 
   **Example Usage**
 ``` 
@@ -41,7 +40,7 @@
 ## Build From Source
 
 ```
-get clone https://github.com/telosnetwork/validator-checks.git
+git clone https://github.com/telosnetwork/validator-checks.git
 cd validator-checks
 yarn
 
