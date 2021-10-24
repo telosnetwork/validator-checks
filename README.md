@@ -46,14 +46,10 @@ cd validator-checks
 yarn
 
 //build for client
-yarn esbuild src/index.ts --bundle --minify --sourcemap=external --outfile=index.js 
-
-
-yarn esbuild src/index.ts  --target=esnext --sourcemap=external --outfile=index.js 
-
+yarn esbuild src/index.ts --bundle --minify --sourcemap=external --outfile=dist/index.js
 
 //build for node
-yarn esbuild src/index.ts --bundle --platform=node --minify --sourcemap=external --outfile=index.js 
+yarn esbuild src/index.ts --bundle --minify --platform=node --sourcemap=external --outfile=dist/server.js
 
 ```
 
