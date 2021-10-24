@@ -9,17 +9,15 @@
 
 ## Install
 
-  **npm**
-    `npm install @telosnetwork/validator-checks`
+  `npm install @telosnetwork/validator-checks`
   
-  **yarn**
-    `yarn add @telosnetwork/validator-checks`
+  `yarn add @telosnetwork/validator-checks`
 
 ## Usage
 
   **Import**
 
-  `import { getProducer, getProducers } from '@telosnetwork/validator-checks'` 
+  `import { getProducer, getProducers } from '@telosnetwork/validator-checks';` 
 
   **Methods**
 ```
@@ -33,7 +31,7 @@ getProducer( owner: string)
   - `owner` (required) : block producer account name
 
   **Return Value**
-  - array of block producer data objects
+   array of block producer data objects
 
   **Example Usage**
 ``` 
