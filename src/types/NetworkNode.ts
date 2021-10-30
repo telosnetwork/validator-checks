@@ -5,7 +5,7 @@ interface Location {
     longitude: number;
 }
 
-enum NodeType{
+export enum NodeType{
     Query = 'query',
     Full = 'full', //deprecated
     Producer = 'producer',
@@ -26,7 +26,7 @@ enum FeatureOption {
 
 export interface NetworkNode {
     location: Location
-    node_type: NodeType;
+    node_type: NodeType | NodeType[];
     api_endpoint?: string;
     ssl_endpoint?: string;
     features?: FeatureOption[]    

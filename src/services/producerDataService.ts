@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { ChainApi } from "./ChainApi";
-import { BlockProducer, Chains, NetworkNode, Results } from "types";
+import { BlockProducer, Chains, NetworkNode, NodeType, Results } from "types";
 
 const mainNetUrl = 'https://mainnet.telos.net';
 const testNetUrl = 'https://testnet.telos.net';
@@ -94,7 +94,11 @@ async function getData(url: string, path: string): Promise<any>{
  * @param nodes nodes array from rpc producer object
  */
 function getQueryNode(nodes: NetworkNode[]): NetworkNode{
-    return nodes.filter((node: NetworkNode) => (node.node_type === 'query' || node.node_type === 'full'))[0];
+    return nodes.filter((node: NetworkNode) => (
+        node.node_type.includes(NodeType.Query) ||
+        node.node_type.includes(NodeType.Full)
+        )
+    )[0];
 }
 
 /**
