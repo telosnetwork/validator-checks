@@ -8,7 +8,7 @@ export async function getProducer(owner: string): Promise<BlockProducer[]>{
     return producer.data;
 }
 
-export async function getProducers(limit = 50): Promise<BlockProducer[]>{
+export async function getProducers(limit = 100): Promise<BlockProducer[]>{
 
     const count = Math.floor( limit / FETCH_COUNT)
     const remainder = limit % FETCH_COUNT;

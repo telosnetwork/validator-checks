@@ -56,7 +56,7 @@ export class ChainApi {
    * @param limit optional results limit
    * @param filter optional tuple [table property, value to filter by] to filter results, must be passed with lowerBound and limit
    */
-  public async getProducers(lowerBound: string, limit: number, filter?: Filter): Promise<Results> {
+  public async getProducers(lowerBound: string, limit: number): Promise<Results> {
     let next_key = "";
 
     const results = await this.rpc.get_producers(true, lowerBound, limit);
@@ -64,9 +64,7 @@ export class ChainApi {
 
     if (results.more) next_key = results.more;
 
-    if (filter !== undefined){
-      producerArray = this.filterByProperty(producerArray, filter);
-    }
+    producerArray = this.filterByProperty(producerArray, {prop: 'is_active', value: 1});
 
     return {data: producerArray as BlockProducer[], key: next_key};
   }

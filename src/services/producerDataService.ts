@@ -20,7 +20,7 @@ let testNetJsonPath: string;
  * @param mainNet optional value to set main net url, default is Telos main net
  * @param testNet optional value to set test net url, default is Telos test net
  */
-export async function getProducerData(limit=1, lowerBound = '',  mainNet = mainNetUrl, testNet = testNetUrl): Promise<Results> {
+export async function getProducerData(limit=10, lowerBound = '',  mainNet = mainNetUrl, testNet = testNetUrl): Promise<Results> {
     
     chainApi = new ChainApi(mainNet);
     chainId = (await chainApi.getInfo()).chain_id;
