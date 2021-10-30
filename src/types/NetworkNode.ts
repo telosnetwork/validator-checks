@@ -7,6 +7,7 @@ interface Location {
 
 enum NodeType{
     Query = 'query',
+    Full = 'full', //deprecated
     Producer = 'producer',
     Seed = 'seed'
 }

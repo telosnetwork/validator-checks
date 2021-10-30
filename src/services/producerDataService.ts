@@ -37,6 +37,7 @@ export async function getProducerData(limit=1, lowerBound = '',  mainNet = mainN
         const chainData = await getData(producer.url, chainPath);
 
         if (chainData && typeof chainData !== 'string'){
+
           producer.chains = chainData.chains as Chains;
           mainNetJsonPath = producer.chains[chainId];
           testNetJsonPath = producer.chains[testChainId]; 
@@ -93,7 +94,7 @@ async function getData(url: string, path: string): Promise<any>{
  * @param nodes nodes array from rpc producer object
  */
 function getQueryNode(nodes: NetworkNode[]): NetworkNode{
-    return nodes.filter((node: NetworkNode) => node.node_type === 'query')[0];
+    return nodes.filter((node: NetworkNode) => (node.node_type === 'query' || node.node_type === 'full'))[0];
 }
 
 /**
