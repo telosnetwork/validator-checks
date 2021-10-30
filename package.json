@@ -1,6 +1,6 @@
 {
   "name": "@telosnetwork/validator-checks",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "performs criteria validation checks for block producers ",
   "main": "dist/server.js",
   "module":"dist/server.js",

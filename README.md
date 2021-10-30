@@ -21,7 +21,7 @@
 import { getProducer, getProducers } from '@telosnetwork/validator-checks';  
 
 //client
-import { getProducer, getProducers } from '@telosnetwork/validator-checks/dist/client'; client
+import { getProducer, getProducers } from '@telosnetwork/validator-checks/dist/client'; 
 ```
 
   **Methods**
@@ -63,7 +63,7 @@ yarn build-client
 //build for node
 yarn build-server
 
-//build for node
+//build for client & node
 yarn build-all
 
 ```
