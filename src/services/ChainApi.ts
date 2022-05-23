@@ -35,7 +35,6 @@ export class ChainApi {
     let producerArray = [];
 
     const results = await this.getTable(params); 
-    
     if (results.more && results.next_key) next_key = results.next_key;
 
     producerArray = filter === undefined ? results.rows : this.filterByProperty(results.rows, filter);

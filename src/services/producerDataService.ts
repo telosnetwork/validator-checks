@@ -48,9 +48,12 @@ export async function getProducerData(limit=10, lowerBound = '',  mainNet = main
             const jsonData = await getData(producer.url, mainNetJsonPath);
 
             if (jsonData && typeof jsonData !== 'string'){
+                let queryNode;
                 producer.org = jsonData.org;
                 producer.nodes = jsonData.nodes as NetworkNode[];
-                const queryNode = getQueryNode(producer.nodes);
+                if (producer.nodes) {
+                    queryNode = getQueryNode(producer.nodes);
+                }
                 /* istanbul ignore else */
                 if (queryNode){          
                     producer.apiVerified = await verifyEndpoint(queryNode.api_endpoint as string);
@@ -63,7 +66,10 @@ export async function getProducerData(limit=10, lowerBound = '',  mainNet = main
         if (testNetJsonPath){
             const jsonData = await getData(producer.url, testNetJsonPath);
             if (jsonData && typeof jsonData !== 'string'){
-                const queryNode = getQueryNode(jsonData.nodes);
+                let queryNode;
+                if(jsonData.nodes){
+                    queryNode = getQueryNode(jsonData.nodes);
+                }
                 /* istanbul ignore else */
                 if (queryNode){          
                   producer.apiVerifiedTestNet = await verifyEndpoint(queryNode.api_endpoint as string);
