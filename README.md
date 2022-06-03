@@ -68,4 +68,4 @@ yarn build-all
 
 ```
 
-
+[NPM page](https://www.npmjs.com/package/@telosnetwork/validator-checks)
