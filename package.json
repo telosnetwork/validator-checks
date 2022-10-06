@@ -1,12 +1,12 @@
 {
   "name": "@telosnetwork/validator-checks",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "description": "performs criteria validation checks for block producers ",
   "main": "dist/server.js",
-  "module":"dist/server.js",
+  "module": "dist/server.js",
   "exports": {
     ".": "./dist/server.js",
-    "./client" : "./dist/client"
+    "./client": "./dist/client"
   },
   "repository": "https://github.com/telosnetwork/validator-checks.git",
   "keywords": [
