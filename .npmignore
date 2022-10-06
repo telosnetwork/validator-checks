@@ -3,3 +3,4 @@ coverage
 *.log
 yarn.lock
 /src/__tests__/
+ci-test
