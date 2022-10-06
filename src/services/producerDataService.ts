@@ -3,7 +3,7 @@ import { ChainApi } from "./ChainApi";
 import { BlockProducer, Chains, NetworkNode, NodeType } from "types";
 
 const TIMEOUT = 4000;
-const shouldDebug = true;
+const shouldDebug = false;
 
 const mainNetUrl = 'https://mainnet.telos.net';
 const testNetUrl = 'https://testnet.telos.net';
