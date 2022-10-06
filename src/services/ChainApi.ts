@@ -68,6 +68,25 @@ export class ChainApi {
     return {data: producerArray as BlockProducer[], key: next_key};
   }
 
+  public async getProducer(producer: string): Promise<BlockProducer> {
+    const results = await this.getProducers(producer, 1);
+    return results.data[0];
+  }
+
+  public async getAllProducers(): Promise<BlockProducer[]> {
+    let hasMore = true;
+    let nextKey = '';
+    let producers: BlockProducer[] = [];
+    while (hasMore) {
+      const results = await this.rpc.get_producers(true, nextKey, 10);
+      hasMore = results.more !== '';
+      nextKey = results.more;
+      producers = producers.concat(results.rows as BlockProducer[]);
+    }
+
+    return producers.filter(p => p.is_active === 1);
+  }
+
   /**
    * @param accountName twelve character account name to get account details
    */

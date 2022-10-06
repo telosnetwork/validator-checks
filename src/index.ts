@@ -1,15 +1,13 @@
 import { getProducerData } from "./services";
 import { BlockProducer } from "types";
 
-const FETCH_COUNT = 10;
 
-export async function getProducer(owner: string): Promise<BlockProducer[]>{
-    const producer = await getProducerData(1, owner);
-    return producer.data;
+export async function getProducer(owner: string): Promise<BlockProducer> {
+    return (await getProducerData(owner))[0];
 }
 
-export async function getProducers(limit = 100): Promise<BlockProducer[]>{
-
+export async function getProducers(): Promise<BlockProducer[]>{
+    /*
     const count = Math.floor( limit / FETCH_COUNT)
     const remainder = limit % FETCH_COUNT;
     let producerData = [] as BlockProducer[];
@@ -27,4 +25,7 @@ export async function getProducers(limit = 100): Promise<BlockProducer[]>{
         producerData = [ ...producerData, ...producerArray.data];
     }
     return producerData;
+     */
+
+    return getProducerData();
 }
